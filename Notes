@@ -16,3 +16,8 @@ Security
 Select Matrix Based Security -> User/group to add -> Add -> opens a grid/matrix where certain rights and permissions can be set for the desired user
 #Enabled Project security : allows to ser user permissions only for the specified job/project
 #Project based Autorization Strategy : more control over the users and the projects they can access
+
+Extras : 
+To upgrade jenkins : use updated jenkins.war file
+To change theme : install Theme Plugin - use CSS file available openly on git -> Configure System -> Themes -> enter the path for the CSS file -> restart jenkins
+To check : Job Config Hidtory 

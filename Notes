@@ -20,4 +20,41 @@ Select Matrix Based Security -> User/group to add -> Add -> opens a grid/matrix 
 Extras : 
 To upgrade jenkins : use updated jenkins.war file
 To change theme : install Theme Plugin - use CSS file available openly on git -> Configure System -> Themes -> enter the path for the CSS file -> restart jenkins
-To check : Job Config Hidtory 
+To check : Job Config History
+To add Mave/Git/JDK path : Global tool Configuration
+
+CI/CD notes : 
+
+1 - Source Code Managment/Control (SCM)
+2 - Build Automation - Maven (Others - Gradle, Ant)
+3 - Automated Test Tool - JUnit (open source unit test framework - )
+4 - Automated Deployment - Docker (Others - Ansible, Spinnaker)
+
+## Automated Tests:
+Unit tests : suite that is run first, often by developers themselves before they add their changes to the repository. Unit tests normally test individual classes or functions. When those classes or functions need access to external resources, those resources are often faked as "mocks" or "stubs".
+Integration tests : next level up from unit tests. Integration tests make sure that the modules that comprise an application work properly with each other. Ideally integration tests are run in environments that are similar to the production environment. For example, you'd want to make sure that if your application uses a database that the same database is available in your integration environment.
+System tests : Should test the entire system in an environment as close as possible to the real production environment.
+
+CI - continuosly push new features and/or fixes to your repo every day/week or any other period you want to.
+CD - continuous release new versions of your software safely and quickly.
+
+#Multibrarch Design Pattern :
+Master branch : working code exists here - end product of the branch has already passed all testing phases - nobody should touch code in this branch for development
+Integration branch : new additions to product are integrated - stems out from the master branch - Building/testing done on this branch still no development.
+Feature branch : open for developers to develop & change code to add new feature - multiple feature branches can be created for various features - stems from integration branch
+*After build & unit testing of the feature branch it is merged into integration branch
+
+We can create 2 Jenkins pipeline to connect feature & integration branches
+
+Feature Pipeline : Pools feature branch for any new commits -> Pulls the latest code, builds it, run tests -> Merge the feature branch (if successful) into integration branch
+
+Maven - builds a project by automatically downloading missing dependencies, providing project informations - uses pom.xml (project object model) file  that contains following elements :
+	*Project : root element of file
+	*modelVersion : version of the model that POM must comply with (4.0.0)
+	*groupID : child element of the project - represents ID of the project group
+	*artifactID : child element of the project - represents ID of the artifact produced by project - binary file that gets generated after building a project (.war, .jar, .ear file)
+	*version : version of the artifact produced by project
+	*other elements may be - packaging specifier(war, jar, ear), name(project), url, dependencies and scope
+>$ mvn compile : complies a project - unwraps an application in target
+>$ mvn clean : clean what ever the mvn compile did and removes all the changes maven did
+>$ mvn package : builds, runs tests and packages the application into jar/war file
